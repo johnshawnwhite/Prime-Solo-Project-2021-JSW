@@ -21,8 +21,17 @@ app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 
+/** ---------- EXPRESS ROUTES ---------- **/
+// const pizzaRouter = require('./routes/pizza.router.js');
+
+
+const overlayRouter = require('./routes/overlay.router.js');
+
+
 /* Routes */
 app.use('/api/user', userRouter);
+app.use('/api/overlay', overlayRouter);
+// app.use('/api/pizza', pizzaRouter);
 
 // Serve static files
 app.use(express.static('build'));

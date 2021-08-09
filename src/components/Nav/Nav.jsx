@@ -26,11 +26,10 @@ function Nav() {
         <Link className="navLink" to={loginLinkData.path}>
           {loginLinkData.text}
         </Link>
-
         {user.id && (
           <>
-            <Link className="navLink" to="/map">
-              Map page
+            <Link className="navLink" to="/overlays">
+              Overlays
             </Link>
             <LogOutButton className="navLink" />
           </>

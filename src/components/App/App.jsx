@@ -1,21 +1,12 @@
 
 import {
-  HashRouter as Router,
-  Route,
-  Redirect,
-  Switch,
-} from 'react-router-dom';
-
+  HashRouter as Router, Route, Redirect, Switch} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl';
-
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import MapPage from '../MapPage/MapPage';
@@ -23,44 +14,45 @@ import MountainPage from '../Mountains/Mountain';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import Overlay from '../Overlays/Overlays';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import OverlayPage from '../Overlays/Overlays';
 
 import './App.css';
 
 
 function App() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   
-  const mapContainer = useRef(null);
-  const map = useRef(null);
-  const [lng, setLng] = useState(-121.426);
-  const [lat, setLat] = useState(47.44);
-  const [zoom, setZoom] = useState(12);
-  mapboxgl.accessToken = 'pk.eyJ1IjoiYmlnYWlyam9uc29uIiwiYSI6ImNrcnM3MmVtazM0ODUyd2tkdXg5bGJsZ2EifQ.1idatnzmiZ46CAl2KvCWvQ';
+  // const mapContainer = useRef(null);
+  // const map = useRef(null);
+  // const [lng, setLng] = useState(-121.426);
+  // const [lat, setLat] = useState(47.44);
+  // const [zoom, setZoom] = useState(12);
+  // mapboxgl.accessToken = 'pk.eyJ1IjoiYmlnYWlyam9uc29uIiwiYSI6ImNrcnM3MmVtazM0ODUyd2tkdXg5bGJsZ2EifQ.1idatnzmiZ46CAl2KvCWvQ';
 
 
-  useEffect(() => {
-    dispatch({ type: 'FETCH_USER' });
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch({ type: 'FETCH_USER' });
+  // }, [dispatch]);
 
-  useEffect(() => {
-    if (map.current) return; // initialize map only once
-    map.current = new mapboxgl.Map({
-    container: mapContainer.current,
-    style: 'mapbox://styles/mapbox/streets-v11',
-    center: [lng, lat],
-    zoom: zoom
-    });
-    });
+  // useEffect(() => {
+  //   if (map.current) return; // initialize map only once
+  //   map.current = new mapboxgl.Map({
+  //   container: mapContainer.current,
+  //   style: 'mapbox://styles/mapbox/streets-v11',
+  //   center: [lng, lat],
+  //   zoom: zoom
+  //   });
+  //   });
 
-  useEffect(() => {
-    if (!map.current) return; // wait for map to initialize
-      map.current.on('move', () => {
-      setLng(map.current.getCenter().lng.toFixed(4));
-      setLat(map.current.getCenter().lat.toFixed(4));
-      setZoom(map.current.getZoom().toFixed(2));
-      });
-      });
+  // useEffect(() => {
+  //   if (!map.current) return; // wait for map to initialize
+  //     map.current.on('move', () => {
+  //     setLng(map.current.getCenter().lng.toFixed(4));
+  //     setLat(map.current.getCenter().lat.toFixed(4));
+  //     setZoom(map.current.getZoom().toFixed(2));
+  //     });
+  //     });
 
   return (
     <Router>
@@ -101,13 +93,13 @@ function App() {
 
 
 
-          {/* <ProtectedRoute  
+          <ProtectedRoute  
           // shows overlay page
             exact
-            path="/overlay"
+            path="/overlays"
           >
-            <Overlay />
-          </ProtectedRoute> */}
+            <OverlayPage />
+          </ProtectedRoute>
 
 
 
@@ -164,12 +156,12 @@ function App() {
         </Switch>
         <Footer />
       </div>
-      <div>
+      {/* <div>
       <div className="sidebar">
 Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
 </div>
 <div ref={mapContainer} className="map-container" />
-</div>
+</div> */}
     </Router>
   );
 }

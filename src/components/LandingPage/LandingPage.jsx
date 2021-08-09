@@ -19,7 +19,7 @@ function LandingPage() {
 
       <div className="grid">
         <div className="grid-col grid-col_8">
-          <p>Welcome to the Mountain, we are here to shred.
+          <p> Welcome to the Mountain, we are here to shred.
           </p>
         </div>
         <div className="grid-col grid-col_4">
@@ -28,7 +28,7 @@ function LandingPage() {
           <center>
             <h4>Have you already singed up</h4>
             <button className="btn btn_sizeSm" onClick={onLogin}>
-              Login
+             Login
             </button>
           </center>
         </div>

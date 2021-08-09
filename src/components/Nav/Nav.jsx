@@ -28,6 +28,9 @@ function Nav() {
         </Link>
         {user.id && (
           <>
+            <Link className="navLink" to="/mountains">
+              Mountains
+            </Link>
             <Link className="navLink" to="/overlays">
               Overlays
             </Link>

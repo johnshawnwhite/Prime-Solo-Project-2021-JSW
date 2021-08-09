@@ -36,16 +36,18 @@ router.post('/updatelocation', (req, res) => {
     })
 });
 // gets all locations on Map with markers
-router.get('/locations', (req, res) => {
-
-    pool.query('SELECT * FROM "mountains";')
-    .then((results) => {
-        res.send(results.rows);
-    })
-    .catch((err) => {
-        console.log('Error receiving coordinates', err);
-        res.sendStatus(500)
-    })
+router.get('/points-features', async (req, res) => {
+    try {
+        const data = await pool.query('SELECT * FROM user_locations;');
+        //Create feature collection of points from data.rows.
+        // Identify the columns from data.rows that contain longitude and latitude.
+        const point = createFeatures(data.rows, 'longitude', 'latitude');
+        // returns FeatureCollection<points>
+        res.send(points);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }   
 });
 
 module.exports = router;

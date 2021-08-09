@@ -18,7 +18,7 @@ router.post('/updatelocation', (req, res) => {
         const lat = response.data.result.addressMatches[0].coordinates.y;
         const lng = response.data.result.addressMatches[0].coordinates.x;
         const qText = `
-        UPDATE  "vendors" 
+        UPDATE  "mountains" 
         SET "location" = '{"lat":${lat},  "lng": ${lng} }', "description" = $1
         WHERE "user_id" = $2;`;
         pool.query(qText,[description, req.user.id])
@@ -35,7 +35,7 @@ router.post('/updatelocation', (req, res) => {
         res.sendStatus(500)
     })
 });
-// gets all locations of farmers and markets to populate Map with markers
+// gets all locations on Map with markers
 router.get('/locations', (req, res) => {
 
     pool.query('SELECT * FROM "mountains";')

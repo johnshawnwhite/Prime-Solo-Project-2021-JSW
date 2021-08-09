@@ -2,12 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-/**
- * GET route template
- */
-router.get('/', (req, res) => {
-  // GET route code here
-});
+
 // GET all overlays that have been placed, populate with data from the mountains collection
 router.get('/', (req, res) => {
   // Find all orders and return them

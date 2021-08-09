@@ -1,9 +1,10 @@
 const { default: axios } = require('axios');
 const express = require('express');
 const router = express.Router();
-const pool = require('../modules/pool')
+const pool = require('../modules/pool');
+const createFeatures = require('../modules/createFeature');
 require('dotenv').config();
-// takes custom address input from farmers and turns it into coordinates to place a marker on the map for users to see
+// takes custom address input and turns it into coordinates to place a marker on the map for users to see
 router.post('/updatelocation', (req, res) => {
     console.log('what is this',req.body);
     const address = req.body.address;

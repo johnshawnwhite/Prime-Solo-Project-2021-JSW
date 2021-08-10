@@ -5,21 +5,15 @@
             "type": "Feature",
             "properties": {
                 "id": 1,
-                "first_name": "Andriette",
-                "last_name": "Morrad",
-                "email": "amorrad0@tinyurl.com",
-                "gender": "Female",
-                "ip_address": "117.15.39.47",
-                "longitude": "-94.3567",
-                "latitude": "39.035",
-                "city": "Kansas City",
-                "state": "Missouri"
+                "first_name": "SAS",
+                "longitude": "-121.426",
+                "latitude": "47.24"
             },
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    "-94.3567",
-                    "39.035"
+                    "-121.426",
+                    "47.24"
                 ]
             }
         },
@@ -27,21 +21,15 @@
             "type": "Feature",
             "properties": {
                 "id": 2,
-                "first_name": "Steffi",
-                "last_name": "Lile",
-                "email": "slile1@ox.ac.uk",
-                "gender": "Female",
-                "ip_address": "7.47.214.77",
-                "longitude": "-94.5933",
-                "latitude": "45.5289",
-                "city": "Saint Cloud",
-                "state": "Minnesota"
+                "first_name": "MTBaker",
+                "longitude": "-121.674",
+                "latitude": "48.8552"
             },
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    "-94.5933",
-                    "45.5289"
+                    "-121.674",
+                    "48.8552"
                 ]
             }
         },
@@ -49,21 +37,31 @@
             "type": "Feature",
             "properties": {
                 "id": 3,
-                "first_name": "Anatole",
-                "last_name": "Witherby",
-                "email": "awitherby2@wikispaces.com",
-                "gender": "Non-binary",
-                "ip_address": "110.228.27.0",
-                "longitude": "-93.374",
-                "latitude": "44.9034",
-                "city": "Minneapolis",
-                "state": "Minnesota"
+                "first_name": "MtHood",
+                "longitude": "121.696",
+                "latitude": "45.373"
+            }, 
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    "-121.696",
+                    "45.373"
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": 4,
+                "first_name": "StevensPass",
+                "longitude": "-121.08",
+                "latitude": "47.74"
             },
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    "-93.374",
-                    "44.9034"
+                    "-121.08",
+                    "47.74"
                 ]
             }
         }

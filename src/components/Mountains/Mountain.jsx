@@ -12,12 +12,19 @@ function Mountains() {
         <p>Here are some possibilties for your favorite spot!</p>
         {/* <p></p><button onClick={`/overlays/${OverlayId}`}>Snoqulmie</button> */}
             // click event will take you to the location of summit at snoqualmie
+            -121.426, 47.24, zoom 11
+            <p></p>
         {/* <p></p><button onClick={`/overlays/${OverlayId}`}>Mt Baker</button> */}
             // click event will take you to the location of Mt Baker
+            -121.674, 48.8552 zoom 11
+            <p></p>
         {/* <p></p><button onClick={`/overlays/${OverlayId}`}>Mt Hood</button> */}
             // click event will take you to the location of Mt hood
+            -121.696, 45.373 zoom 11
+            <p></p>
         {/* <p></p><button onClick={`/overlays/${OverlayId}`}>Stevens pass</button> */}
             // click event will take you to the location of Stevens Pass
+            -121.08, 47.74 zoom 11
       </div>
       {/* <div ref = {this.mapContainer} className = "mapContainer"/> */}
       </div>

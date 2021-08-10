@@ -42,7 +42,7 @@ router.get('/points-features', async (req, res) => {
         const data = await pool.query('SELECT * FROM user_locations;');
         //Create feature collection of points from data.rows.
         // Identify the columns from data.rows that contain longitude and latitude.
-        const point = createFeatures(data.rows, 'longitude', 'latitude');
+        const points = createFeatures(data.rows, 'longitude', 'latitude');
         // returns FeatureCollection<points>
         res.send(points);
     } catch (error) {

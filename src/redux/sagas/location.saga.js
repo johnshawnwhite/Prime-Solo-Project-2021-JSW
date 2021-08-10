@@ -6,6 +6,7 @@ function* locationSaga () {
     yield takeEvery('ADD_MARKER', addMarker);
     yield takeEvery('GET_MARKER_DATA', deleteMarker);
     yield takeEvery('GET_MARKER', findMarker);
+    yield takeEvery('CHANGE_MARKER_DATA', updateMarker);
     }
 
     //used to go from the mountains page to the overlays page, directly to the mountain of your choice
@@ -53,4 +54,15 @@ function* findMarker(){
         console.log('Error deleting marker', err);
     }
 }
-  export default locationSaga;
+  
+  function* updateMarker(action){
+    try{
+    yield axios.put(`/api/overlays/marker/${action.payload}`);
+    yield put({type: 'CHANGE_MARKER_DATA'});
+    } 
+    catch(err) {
+        console.log('Error Finding Marker DATA', err);
+    }
+}
+
+export default locationSaga;

@@ -2,7 +2,7 @@ const { default: axios } = require('axios');
 const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool');
-const createFeatures = require('../modules/createFeature');
+// const createFeatures = require('../modules/createFeature');
 require('dotenv').config();
 // takes custom address input and turns it into coordinates to place a marker on the map for users to see
 router.post('/updatelocation', (req, res) => {
@@ -37,18 +37,18 @@ router.post('/updatelocation', (req, res) => {
     })
 });
 // gets all locations on Map with markers
-router.get('/points-features', async (req, res) => {
-    try {
-        const data = await pool.query('SELECT * FROM user_locations;');
-        //Create feature collection of points from data.rows.
-        // Identify the columns from data.rows that contain longitude and latitude.
-        const points = createFeatures(data.rows, 'longitude', 'latitude');
-        // returns FeatureCollection<points>
-        res.send(points);
-    } catch (error) {
-        console.log(error);
-        res.sendStatus(500);
-    }   
-});
+// router.get('/points-features', async (req, res) => {
+//     try {
+//         const data = await pool.query('SELECT * FROM user_locations;');
+//         //Create feature collection of points from data.rows.
+//         // Identify the columns from data.rows that contain longitude and latitude.
+//         const points = createFeatures(data.rows, 'longitude', 'latitude');
+//         // returns FeatureCollection<points>
+//         res.send(points);
+//     } catch (error) {
+//         console.log(error);
+//         res.sendStatus(500);
+//     }   
+// });
 
 module.exports = router;

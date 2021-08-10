@@ -1,51 +1,57 @@
 import React, {useState}from 'react';
 // import {render} from 'react-dom';
-import ReactMapGL from 'react-map-gl';
+import ReactMapGL, {Marker} from 'react-map-gl';
 // import {marker, popup} from "react-map-gl";{MapContext}, useEffect
 // import * as featureCollection from "./data/featureCollection.json";
 
-<h3>This is fun</h3>
-function OverlayPage() {
-const MAPBOX_TOKEN = 'pk.eyJ1IjoiYmlnYWlyam9uc29uIiwiYSI6ImNrcnM3MmVtazM0ODUyd2tkdXg5bGJsZ2EifQ.1idatnzmiZ46CAl2KvCWvQ'; 
+const MAPBOX_TOKEN = 'pk.eyJ1Ijoia2RzemFmcmFuc2tpIiwiYSI6ImNrczZhNGM0NzA4MG0yb210enlhOWkxaHkifQ.GEhDTku0VpkCA5wdnwDBvA'; // Set your mapbox token here
 
-// function Root() {
+function Overlays() {
+  
   const [viewport, setViewport] = useState({
-    latitude: 47.44,
-    longitude: -121.426,
-    width: 700,
+    width: 400,
     height: 400,
-    zoom: 3
+    latitude: 44.9778,
+    longitude: -93.2650,
+    zoom: 8
   });
 
+  let [markers, setMarkers] = useState([
+    {
+      lat: 44.9,
+      long: -93.2,
+      text: 'thing one',
+    },
+    {
+      lat: 44.8,
+      long: -93.2,
+      text: 'thing two',
+    },
+  ]);
+  
+
   return (
-    <div>
     <ReactMapGL
       {...viewport}
-      mapboxApiAccessToken={MAPBOX_TOKEN}
+      onViewportChange={nextViewport => setViewport(nextViewport)}
       // mapStyle="mapbox://styles/mapbox/dark-v9"
-      // onViewportChange={viewport => { 
-      //     setViewport(viewport); 
-      //   }}
+      mapboxApiAccessToken={MAPBOX_TOKEN}
     >
-        {/* {featureCollection.features.map((feature) => (
-            <marker 
-            key={feature.properties.ID} 
-            latitude={feature.properties.longitude}
-            longitude={feature.properties.latitude}>
-                <div></div>
-
-            </marker>
-        ))} */}
-      {/* { /* Markers and Popup will go here */ } i like apples and bananas
+        {markers.map( (item, index) => {
+          return (
+            <Marker key={index}
+              latitude={item.lat} 
+              longitude={item.long} 
+              offsetLeft={-20} 
+              offsetTop={-10}
+            >
+              <div className="marker">{item.text}</div>
+            </Marker>
+          )
+        })}
+      
     </ReactMapGL>
-  </div>
-  
   );
 }
 
-// document.body.style.margin = 0;
-// return (<Root/>);
-// render (<Root />, document.body.appendChild(document.createElement('div')));
-// }
-
-export default OverlayPage;
+export default Overlays;

@@ -1,7 +1,9 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {render} from 'react-dom';
-import MapGL from 'react-map-gl';
+import MapGL, {MapContext} from 'react-map-gl';
+import {marker, popup} from "react-map-gl";
+// import * as featureCollection from "./data/featureCollection.json";
 
 <h3>This is fun</h3>
 function OverlayPage() {
@@ -11,20 +13,43 @@ function Root() {
   const [viewport, setViewport] = useState({
     latitude: 47.44,
     longitude: -121.426,
-    zoom: 4,
-    bearing: 0,
-    pitch: 0
+    width: "80vw",
+    height: "70vh",
+    zoom: 11
   });
 
   return (
+    
     <MapGL
       {...viewport}
-      width="50vw"
-      height="80vh"
-      mapStyle="mapbox://styles/mapbox/dark-v9"
-      onViewportChange={setViewport}
       mapboxApiAccessToken={MAPBOX_TOKEN}
-    />
+      mapStyle="mapbox://styles/mapbox/dark-v9"
+      width="60vw"
+      height="50vw"
+      onViewportChange={viewport => { 
+          setViewport(viewport); 
+        }}
+    >
+        {/* {featureCollection.features.map((feature) => (
+            <marker 
+            key={feature.properties.ID} 
+            latitude={feature.properties.longitude}
+            longitude={feature.properties.latitude}>
+                <div></div>
+
+            </marker>
+        ))} */}
+      {/* { /* Markers and Popup will go here */ } i like apples and bananas
+    </MapGL>
+  
+    // <MapGL
+    //   {...viewport}
+    //   width="50vw"
+    //   height="80vh"
+    //   mapStyle="mapbox://styles/mapbox/streets-v11"
+    //   onViewportChange={setViewport}
+    //   mapboxApiAccessToken={MAPBOX_TOKEN}
+    // />
   );
 }
 

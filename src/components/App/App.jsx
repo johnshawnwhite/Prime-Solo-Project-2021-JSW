@@ -96,7 +96,7 @@ function App() {
           <ProtectedRoute  
           // shows overlay page
             exact
-            path="/overlays"
+            path="/Overlays"
           >
             <OverlayPage />
           </ProtectedRoute>

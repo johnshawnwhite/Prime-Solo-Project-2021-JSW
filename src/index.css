@@ -15,3 +15,26 @@
     margin: 12px;
     border-radius: 4px;
     }
+
+    .marker-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .marker-btn img {
+        width: 20px;
+        height: 20px;
+    }
+    h6 {
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .mapdiv {
+        margin-left: 15vw;
+        margin-top: 3vw;
+        margin-left: 10vw;
+        margin-right: 10vw;
+    }

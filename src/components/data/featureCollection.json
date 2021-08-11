@@ -1,0 +1,69 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "id": 1,
+                "name": "SAS",
+                "longitude": -121.426,
+                "latitude": 47.44
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -121.437,
+                    47.44
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": 2,
+                "name": "MTBaker",
+                "longitude": -121.674,
+                "latitude": 48.8552
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -121.67,
+                    48.855
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": 3,
+                "name": "MtHood",
+                "longitude": 121.696,
+                "latitude": 45.373
+            }, 
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -121.696,
+                    45.373
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": 4,
+                "name": "StevensPass",
+                "longitude": -121.08,
+                "latitude": 47.74
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -121.08,
+                    47.74
+                ]
+            }
+        }
+    ]
+}

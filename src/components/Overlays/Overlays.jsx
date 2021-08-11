@@ -17,8 +17,50 @@ function Overlays() {
   });
   const [selectedMountain, setSelectedMountain] = useState(null);
 
+  
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
+  const [description, setDescription] = useState('');
+
+
+  const onNextClick = () => {
+    const marker = {
+        latitude: latitude,
+        longitude: longitude,
+        description: description
+    }
+
+    console.log('adding a marker to overlay', marker);
+    dispatch({
+        type: 'ADD_CUSTOMER',
+        payload: marker
+    });
+    alert("Prewind for loading");
+    // history.push('/checkout');    need to reload map on click event
+}
+
   return (
-    <div>
+    <div class="mapdiv">
+      <h1>Add A NEW MARKER</h1>
+      <input
+        type="text"
+        onChange={(event) => setLatitude(event.target.value)}
+        placeholder="latitude"
+        value={latitude}
+      />
+      <input
+        type="text"
+        onChange={(event) => setLongitude(event.target.value)}
+        placeholder="Longitude"
+        value={longitude}
+      />
+      <input
+        type="text"
+        onChange={(event) => setDescription(event.target.value)}
+        placeholder="Description"
+        value={description}
+      />
+      <button onClick={onNextClick}>Post it!</button>
       <ReactMapGL
         {...viewport}
         onViewportChange={(nextViewport) => setViewport(nextViewport)}
@@ -50,8 +92,13 @@ function Overlays() {
           <Popup
             latitude={selectedMountain.geometry.coordinates[1]}
             longitude={selectedMountain.geometry.coordinates[0]}
+            onClose={() => {
+              setSelectedMountain(null);
+            }}
           >
-            <div><h4>{selectedMountain.properties.name</h4></div>
+            <div>
+              <h6>{selectedMountain.properties.name}</h6>
+            </div>
           </Popup>
         ) : null}
       </ReactMapGL>

@@ -17,42 +17,18 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import OverlayPage from '../Overlays/Overlays';
 
+
 import './App.css';
 
 
 function App() {
-  // const dispatch = useDispatch();
-  
-  // const mapContainer = useRef(null);
-  // const map = useRef(null);
-  // const [lng, setLng] = useState(-121.426);
-  // const [lat, setLat] = useState(47.44);
-  // const [zoom, setZoom] = useState(12);
-  // mapboxgl.accessToken = 'pk.eyJ1IjoiYmlnYWlyam9uc29uIiwiYSI6ImNrcnM3MmVtazM0ODUyd2tkdXg5bGJsZ2EifQ.1idatnzmiZ46CAl2KvCWvQ';
+  const dispatch = useDispatch();
 
-
-  // useEffect(() => {
-  //   dispatch({ type: 'FETCH_USER' });
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (map.current) return; // initialize map only once
-  //   map.current = new mapboxgl.Map({
-  //   container: mapContainer.current,
-  //   style: 'mapbox://styles/mapbox/streets-v11',
-  //   center: [lng, lat],
-  //   zoom: zoom
-  //   });
-  //   });
-
-  // useEffect(() => {
-  //   if (!map.current) return; // wait for map to initialize
-  //     map.current.on('move', () => {
-  //     setLng(map.current.getCenter().lng.toFixed(4));
-  //     setLat(map.current.getCenter().lat.toFixed(4));
-  //     setZoom(map.current.getZoom().toFixed(2));
-  //     });
-  //     });
+  useEffect(() => {
+    dispatch({
+      type: 'FETCH_USER'
+    });
+  }, []);
 
   return (
     <Router>

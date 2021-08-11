@@ -29,6 +29,9 @@ function Overlays() {
         longitude: longitude,
         description: description
     }
+    //  this function needs to be connected to the database still and correctly adding the marker to the user location collection list, 
+    // also need to be able to edit and delete the markers, so maybe a list appended to the dom that populates an edit and delete button
+    // the edit button......hmmm...
 
     console.log('adding a marker to overlay', marker);
     dispatch({

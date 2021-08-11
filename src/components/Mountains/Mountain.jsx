@@ -34,7 +34,7 @@ function Mountains() {
         // the two values in the history params, and the overlay page use the variable  */}
 <p>the Summit at SnoQualmie</p>
         <button onClick={() => handleClick( 47.44, -121.426)}>SKILIFT</button>
-            -121.426, 47.24, zoom 11
+            
             <p></p>
 <p>Mt Baker</p>
         <button onClick={() => handleClick( 48.8552, -121.674)}>SKILIFT</button>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 // import {render} from 'react-dom';
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 // import {marker, popup} from "react-map-gl";{MapContext}, useEffect
@@ -8,42 +9,43 @@ const MAPBOX_TOKEN =
   "pk.eyJ1Ijoia2RzemFmcmFuc2tpIiwiYSI6ImNrczZhNGM0NzA4MG0yb210enlhOWkxaHkifQ.GEhDTku0VpkCA5wdnwDBvA"; // Set your mapbox token here
 
 function Overlays() {
+  const start = useSelector((store) => store.locations.overlayStartingPoints);
+
   const [viewport, setViewport] = useState({
     width: "60vw",
     height: "40vw",
-    latitude: 47.44,
-    longitude: -121.437,
+    latitude: start.latitude,
+    longitude: start.longitude,
     zoom: 11,
   });
+
   const [selectedMountain, setSelectedMountain] = useState(null);
 
-  
-  const [latitude, setLatitude] = useState('');
-  const [longitude, setLongitude] = useState('');
-  const [description, setDescription] = useState('');
-
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [description, setDescription] = useState("");
 
   const onNextClick = () => {
     const marker = {
-        latitude: latitude,
-        longitude: longitude,
-        description: description
-    }
-    //  this function needs to be connected to the database still and correctly adding the marker to the user location collection list, 
+      latitude: latitude,
+      longitude: longitude,
+      description: description,
+    };
+    //  this function needs to be connected to the database still and correctly adding the marker to the user location collection list,
     // also need to be able to edit and delete the markers, so maybe a list appended to the dom that populates an edit and delete button
     // the edit button......hmmm...
 
-    console.log('adding a marker to overlay', marker);
+    console.log("adding a marker to overlay", marker);
     dispatch({
-        type: 'ADD_CUSTOMER',
-        payload: marker
+      type: "ADD_CUSTOMER",
+      payload: marker,
     });
     alert("Prewind for loading");
     // history.push('/checkout');    need to reload map on click event
-}
+  };
 
   return (
-    <div class="mapdiv">
+    <div className="mapdiv">
       <h1>Add A NEW MARKER</h1>
       <input
         type="text"

@@ -11,9 +11,10 @@ function AboutPage() {
       <div>
         <p>This about page is for anyone to read!</p>
         <p>Technologies used</p>
-        <p>Maps</p>
-        <p>React</p>
-        <p>etc.</p>
+        <p>React Map GL</p>
+        <p>Postres</p>
+        <p>SAGA</p>
+        <p>Feature Collection</p>
       </div>
       </div>
   )

@@ -1,30 +1,51 @@
 import React from 'react';
-
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 
 function Mountains() {
+
+  const dispatch = useDispatch();
+  const history = useHistory();
     // const onSelectOverlay = (OverlayId) => {
     //     history.push(`/overlays/${OverlayId}`);
+  
+  const handleClick = (latitude, longitude) => {
+    event.preventDefault();
+    dispatch({
+        type: 'SET_OVERLAY_STARTING_POINTS',
+        payload: { latitude: latitude, longitude: longitude},
+    });
+    // alert("You are now searching");
+    // console.log('reducer', searchReducer);
+    history.push('/overlays');
+} ;
+  
 
   return (
     <div className="container">
       <div>
         <p>Here are some possibilties for your favorite spot!</p>
-        {/* <p></p><button onClick={`/overlays/${OverlayId}`}>Snoqulmie</button> */}
-            // click event will take you to the location of summit at snoqualmie
+        {/* // save the coordinates in a reducer and call the reducer from the other page?
+        // the value of the reducer is the value of the coordinates..
+
+        // or i can send params
+        // by using the params i will be using the history
+        // the two values in the history params, and the overlay page use the variable  */}
+<p>the Summit at SnoQualmie</p>
+        <button onClick={() => handleClick( 47.44, -121.426)}>SKILIFT</button>
             -121.426, 47.24, zoom 11
             <p></p>
-        {/* <p></p><button onClick={`/overlays/${OverlayId}`}>Mt Baker</button> */}
-            // click event will take you to the location of Mt Baker
-            -121.674, 48.8552 zoom 11
+<p>Mt Baker</p>
+        <button onClick={() => handleClick( 48.8552, -121.674)}>SKILIFT</button>
             <p></p>
-        {/* <p></p><button onClick={`/overlays/${OverlayId}`}>Mt Hood</button> */}
-            // click event will take you to the location of Mt hood
-            -121.696, 45.373 zoom 11
+        
+<p>Ht Hood</p>    
+        <button onClick={() => handleClick( 45.373, -121.696)}>SKILIFT</button> 
             <p></p>
-        {/* <p></p><button onClick={`/overlays/${OverlayId}`}>Stevens pass</button> */}
-            // click event will take you to the location of Stevens Pass
-            -121.08, 47.74 zoom 11
+<p>Stevens Pass</p>
+        <button onClick={() => handleClick( 45.373, -121.696)}>SKILIFT</button>
+           
       </div>
       {/* <div ref = {this.mapContainer} className = "mapContainer"/> */}
       </div>
@@ -33,34 +54,3 @@ function Mountains() {
 
 
 export default Mountains;
-// import * as React from 'react';
-// import {useState} from 'react';
-// import {render} from 'react-dom';
-// import MapGL from 'react-map-gl';
-
-// const MAPBOX_TOKEN = ''; // Set your mapbox token here
-
-// function Root() {
-//   const [viewport, setViewport] = useState({
-//     latitude: 37.8,
-//     longitude: -122.4,
-//     zoom: 14,
-//     bearing: 0,
-//     pitch: 0
-//   });
-
-//   return (
-//     <MapGL
-//       {...viewport}
-//       width="100vw"
-//       height="100vh"
-//       mapStyle="mapbox://styles/mapbox/dark-v9"
-//       onViewportChange={setViewport}
-//       mapboxApiAccessToken={MAPBOX_TOKEN}
-//     />
-//   );
-// }
-
-// document.body.style.margin = 0;
-// render(<Root />, document.body.appendChild(document.createElement('div')));
-

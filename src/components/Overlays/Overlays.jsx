@@ -16,7 +16,7 @@ function Overlays() {
     height: "40vw",
     latitude: start.latitude,
     longitude: start.longitude,
-    zoom: 11,
+    zoom: 13,
   });
 
   const [selectedMountain, setSelectedMountain] = useState(null);

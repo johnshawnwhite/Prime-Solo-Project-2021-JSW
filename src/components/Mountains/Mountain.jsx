@@ -44,7 +44,7 @@ function Mountains() {
         <button onClick={() => handleClick( 45.373, -121.696)}>SKILIFT</button> 
             <p></p>
 <p>Stevens Pass</p>
-        <button onClick={() => handleClick( 45.373, -121.696)}>SKILIFT</button>
+        <button onClick={() => handleClick( 47.74, -121.08)}>SKILIFT</button>
            
       </div>
       {/* <div ref = {this.mapContainer} className = "mapContainer"/> */}

@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 
-// GET all overlays that have been placed, populate with data from the mountains collection
+// GET all markers that have been placed, populate with data from the mountains collection
 router.get('/', (req, res) => {
   // Find all orders and return them
   pool.query('SELECT * FROM "overlays";').then((result) => {
@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
   });
 });
 
-// POST a new overlay
+// POST a new marker
 router.post('/', async (req, res) => {
   const client = await pool.connect();
   try {
@@ -39,10 +39,10 @@ router.post('/', async (req, res) => {
           return client.query(insertLineItemText, insertLineItemValues);
       }));
 
-      await client.query('COMMIT')
+      await client.query('GOOD TO GO')
       res.sendStatus(201);
   } catch (error) {
-      await client.query('ROLLBACK')
+      await client.query('DID NOT WORK')
       console.log('Error POST /api/overlay', error);
       res.sendStatus(500);
   } finally {
@@ -50,7 +50,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// DELETE an overlay
+// DELETE a Marker
 router.delete('/:id', (req, res) => {
   pool.query('DELETE FROM "overlay" WHERE id=$1', [req.params.id]).then((result) => {
       res.sendStatus(200);

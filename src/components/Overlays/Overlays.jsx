@@ -16,7 +16,7 @@ function Overlays() {
   const start = useSelector((store) => store.locations.overlayStartingPoints);
   const markers = useSelector((store) => store.locations.findMarker);
   const deletemarker = useSelector((store) => store.locations.deleteMarker);
-  const updateMarker = useSelector((store) => store.locations.updateMarker)
+  const updateMarker = useSelector((store) => store.locations.updateMarker);
   const dispatch = useDispatch();
 
   const navStyle = {

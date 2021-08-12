@@ -1,19 +1,22 @@
-const turf = require('@turf/turf');
+import { point, featureCollection } from '@turf/turf';
+import { param } from '../routes/overlay.router';
 
 /**
  * 
  * @param {Array} data
  * @param {string} longitudeProperty
  * @param {string} latitudeProperty
- * @returns {import '@turf/turf' .FeatureCollection} Feature Collection of Point Features.
+ * @returns {import '@turf/turf' .featureCollection} feature collection of point features
+ * 
  */
-const createFeatures = (data, longitudeProperty, latitudeProperty) => {
+
+const createFeatures = () => {
     let featureArray = [];
     for (const d of data) {
-        const p = turf.point([d[longitudeProperty], d[latitudeProperty]], d);
+        const p = point([d[longitudeProperty], d[latitudeProperty]],d);
         featureArray.push(p);
     }
-    return turf.featureCollection(featureArray);
+    return featureCollection(featureArray);
 };
 
-module.exports = createFeatures;
+export default createFeatures;

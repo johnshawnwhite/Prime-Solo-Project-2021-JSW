@@ -1,5 +1,5 @@
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {render} from 'react-dom';
 // import {render} from 'react-dom';
@@ -14,6 +14,9 @@ const MAPBOX_TOKEN =
 
 function Overlays() {
   const start = useSelector((store) => store.locations.overlayStartingPoints);
+  const markers = useSelector((store) => store.locations.findMarker);
+  const deletemarker = useSelector((store) => store.locations.deleteMarker);
+  const updateMarker = useSelector((store) => store.locations.updateMarker)
   const dispatch = useDispatch();
 
   const navStyle = {
@@ -23,6 +26,11 @@ function Overlays() {
   padding: '0px'
   };
 
+  useEffect(() => {
+    console.log('use effect for get markers');
+    dispatch({type: 'GET_MARKERS'})
+  }, []);
+
   const [viewport, setViewport] = useState({
     width: "70vw",
     height: "50vw",
@@ -31,23 +39,23 @@ function Overlays() {
     zoom: 13,
   });
 
-  const [markerb, setMarkerb] = useState({
+  const [marker, setMarker] = useState({
     latitude: 40,
     longitude: -100
   });
   const [events, logEvents] = useState({});
 
-  const onMarkerbDragStart = useCallback(event => {
+  const onMarkerDragStart = useCallback(event => {
     logEvents(_events => ({..._events, onDragStart: event.lngLat}));
   }, []);
 
-  const onMarkerbDrag = useCallback(event => {
+  const onMarkerDrag = useCallback(event => {
     logEvents(_events => ({..._events, onDrag: event.lngLat}));
   }, []);
 
-  const onMarkerbDragEnd = useCallback(event => {
+  const onMarkerDragEnd = useCallback(event => {
     logEvents(_events => ({..._events, onDragEnd: event.lngLat}));
-    setMarkerb({
+    setMarker({
       longitude: event.lngLat[0],
       latitude: event.lngLat[1]
     });
@@ -59,13 +67,18 @@ function Overlays() {
     return <div>{context.viewport.zoom}</div>;
   }
 
+  const displayMarkers = (marker) => {
+  {
+      return markers.map(marker => (<li key={marker.id}>{marker.description}</li>))
+  }};
+
   const [selectedMountain, setSelectedMountain] = useState(null);
 
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [description, setDescription] = useState("");
-
-  const onNextClick = () => {
+ 
+  const onPostClick = () => {
     const marker = {
       latitude: latitude,
       longitude: longitude,
@@ -84,9 +97,36 @@ function Overlays() {
     // alert("Prewind for loading");
     // history.push('/checkout');    need to reload map on click event
   };
+  const deleteClick = () => {
+    const marker = {
+      latitude: latitude,
+      longitude: longitude,
+      description: description
+    }
+
+    console.log("delete this marker", marker)
+    dispatch({
+      type: "DELETE_MARKER",
+      payload: marker.id
+  });
+}
+
+  const editClick = () => {
+    const marker = {
+      latitude: latitude,
+      longitude: longitude,
+      description: description,
+    };
+
+    console.log("edit this marker", marker)
+    dispatch({
+      type: "EDIT_MARKER",
+      payload: marker.id
+    });
+  }
 
   const handleClick = () => {
-    const markerb = {
+    const marker = {
       latitude: latitude,
       longitude: longitude,
       description: description,
@@ -129,7 +169,7 @@ function Overlays() {
         placeholder="Description"
         value={description}
       />
-      <button onClick={onNextClick}>Post it!</button>
+      <button onClick={onPostClick}>Post it!</button>
       <button onClick={handleClick}>Show me markers!</button>
       <ReactMapGL
         {...viewport}
@@ -142,18 +182,18 @@ function Overlays() {
           trackUserLocation={true}
         /> */}
         
-        {places.features.map((mountain, markerb) => {
+        {places.features.map((mountain, marker) => {
           return (
             <Marker
               key={mountain.properties.id}
-              latitude={markerb.latitude, mountain.geometry.coordinates[1]}
-              longitude={markerb.longitude, mountain.geometry.coordinates[0]}
+              latitude={marker.latitude, mountain.geometry.coordinates[1]}
+              longitude={marker.longitude, mountain.geometry.coordinates[0]}
               offsetLeft={-20}
               offsetTop={-10}
               draggable
-              onDragStart={onMarkerbDragStart}
-              onDrag={onMarkerbDrag}
-              onDragEnd={onMarkerbDragEnd}
+              onDragStart={onMarkerDragStart}
+              onDrag={onMarkerDrag}
+              onDragEnd={onMarkerDragEnd}
             >
               <Pin size={20} />
               <button
@@ -174,14 +214,15 @@ function Overlays() {
           <Popup
             latitude={selectedMountain.geometry.coordinates[1]}
             longitude={selectedMountain.geometry.coordinates[0]}
+            closeOnClick={false}
             onClose={() => {
               setSelectedMountain(null);
             }}
           >
             <div>
               <h6>{selectedMountain.properties.name}</h6>
-              <button>Edit</button>
-              <button>Delete</button>
+              <button onClick={editClick}>Edit</button>
+              <button onClick={deleteClick}>Delete</button>
             </div>
           </Popup>
         ) : null}
@@ -189,6 +230,11 @@ function Overlays() {
         </div><ControlPanel events={events}></ControlPanel>
         <NavigationControl />
       </ReactMapGL>
+      <div>
+        <ul>List of Marker
+          <li></li>
+        </ul>
+      </div>
       
     </div>
   );

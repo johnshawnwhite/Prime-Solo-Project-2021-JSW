@@ -35,8 +35,11 @@ function* addMarker(action) {
 
 function* findMarker(){
     try{
-    const response = yield axios.get('/api/overlays/marker');
-    yield put({type: "GET_MARKER", payload: response.data});
+    const response = yield axios.get('/api/coordinates/pointsfeatures/');
+    yield put({
+        type: 'GET_MARKERS',
+        payload: response.data
+    })
     } 
     catch(err) {
         console.log('Error GETing favorite', err);

@@ -23,7 +23,17 @@ const overlayStartingPoints = (
   }
 };
 
+const markerLocations = (state = [], action) => {
+  switch (action.type) {
+      case "SEND_MARKER_LOCATIONS":
+          console.log('list of marker coordinates', action.payload);
+          default:
+              return state;
+  }
+};
+
 export default combineReducers({
   mountainLocations,
   overlayStartingPoints,
+  markerLocations
 });

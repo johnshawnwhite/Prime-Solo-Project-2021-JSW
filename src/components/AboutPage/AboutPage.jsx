@@ -14,6 +14,8 @@ function AboutPage() {
         <p>React Map GL</p>
         <p>Postres</p>
         <p>SAGA</p>
+        <p>Redux</p>
+        <p>Node</p>
         <p>Feature Collection</p>
       </div>
       </div>

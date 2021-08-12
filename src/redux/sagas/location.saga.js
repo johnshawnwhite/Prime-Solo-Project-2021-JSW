@@ -24,8 +24,8 @@ function* getOverlayCoordinates() {
 
 function* addMarker(action) {
     try{
-        yield axios.post( '/api/overlays/', action.payload);
-        yield put({type: 'ADD_MARKER'})
+        yield axios.post( '/api/coordinates/pointsfeatures/', action.payload);
+        console.log(action.payload);
       }
       catch(error) {
         console.log('Error adding Marker', error);

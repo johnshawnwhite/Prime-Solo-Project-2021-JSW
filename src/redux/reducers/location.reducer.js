@@ -11,7 +11,7 @@ const mountainLocations = (state = [], action) => {
 };
 
 const overlayStartingPoints = (
-  state = { longitude: -121.7603, latitude: 46.8523 },
+  state = { longitude: -121.44288, latitude: 47.43887 },
   action
 ) => {
   switch (action.type) {

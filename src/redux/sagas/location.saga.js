@@ -4,7 +4,7 @@ function* locationSaga() {
   yield takeEvery("SET_MOUNTAIN_COORDINATES", getOverlayCoordinates);
   yield takeEvery("ADD_MARKER", addMarker);
   yield takeEvery("GET_MARKER_DATA", deleteMarker);
-  yield takeEvery("GET_MARKER", findMarker);
+  yield takeEvery("GET_MARKERS", findMarker);
   yield takeEvery("CHANGE_MARKER_DATA", updateMarker);
 }
 
@@ -32,7 +32,7 @@ function* findMarker() {
   try {
     const response = yield axios.get("/api/coordinates/pointsfeatures/");
     yield put({
-      type: "GET_MARKERS",
+      type: "SEND_MARKER_LOCATIONS",
       payload: response.data,
     });
   } catch (err) {
@@ -43,7 +43,7 @@ function* findMarker() {
 function* deleteMarker(action) {
   console.log(action.payload);
   try {
-    yield axios.delete(`/api/overlays/marker/${action.payload.id}`);
+    yield axios.delete(`/api/cooridnates/pointsfeatures/${action.payload.id}`);
     yield put({ type: "GET_MARKER_DATA" });
   } catch (err) {
     console.log("Error deleting marker", err);
@@ -52,7 +52,7 @@ function* deleteMarker(action) {
 
 function* updateMarker(action) {
   try {
-    yield axios.put(`/api/overlays/marker/${action.payload}`);
+    yield axios.put(`/api/coordinates/pointsfeatures/${action.payload}`);
     yield put({ type: "CHANGE_MARKER_DATA" });
   } catch (err) {
     console.log("Error Finding Marker DATA", err);

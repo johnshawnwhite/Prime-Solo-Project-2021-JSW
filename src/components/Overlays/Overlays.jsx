@@ -5,7 +5,7 @@ import {render} from 'react-dom';
 // import {render} from 'react-dom';
 import ReactMapGL, { Marker, Popup, GeolocateControl, MapContext, NavigationControl } from "react-map-gl";
 // import {marker, popup} from "react-map-gl";{MapContext}, useEffect
-import places from "../data/featureCollection.json";
+// import places from "../data/featureCollection.json";
 import Pin from './pin';
 import ControlPanel from './control-panel';
 
@@ -14,7 +14,7 @@ const MAPBOX_TOKEN =
 
 function Overlays() {
   const start = useSelector((store) => store.locations.overlayStartingPoints);
-  const markers = useSelector((store) => store.locations.findMarker);
+  const markers = useSelector((store) => store.locations.markerLocations);
   const deletemarker = useSelector((store) => store.locations.deleteMarker);
   const updateMarker = useSelector((store) => store.locations.updateMarker);
   const dispatch = useDispatch();
@@ -39,10 +39,7 @@ function Overlays() {
     zoom: 13,
   });
 
-  const [marker, setMarker] = useState({
-    latitude: 40,
-    longitude: -100
-  });
+  const [marker, setMarker] = useState(null);
   const [events, logEvents] = useState({});
 
   const onMarkerDragStart = useCallback(event => {
@@ -147,7 +144,7 @@ function Overlays() {
       });
     });
   }, [viewport]);
-
+console.log('posting markers',markers);
   return (
     <div className="mapdiv">
       <h1>Add A NEW MARKER</h1>
@@ -182,12 +179,12 @@ function Overlays() {
           trackUserLocation={true}
         /> */}
         
-        {places.features.map((mountain, marker) => {
+        {markers.map((spots) => {
           return (
             <Marker
-              key={mountain.properties.id}
-              latitude={marker.latitude, mountain.geometry.coordinates[1]}
-              longitude={marker.longitude, mountain.geometry.coordinates[0]}
+              key={spots.id}
+              latitude={Number(spots.latitude)}
+              longitude={Number(spots.longitude)}
               offsetLeft={-20}
               offsetTop={-10}
               draggable
@@ -196,31 +193,31 @@ function Overlays() {
               onDragEnd={onMarkerDragEnd}
             >
               <Pin size={20} />
-              <button
+              {/* <button
                 className="marker-btn"
                 onClick={(event) => {
                   event.preventDefault();
-                  setSelectedMountain(mountain);
+                  setSelectedMountain(spots);
                 }}
               >
                 <img src="/snowboard.png" alt="location icon" />
-              </button>
+              </button> */}
               
             </Marker>
             
           );
         })}
-        {selectedMountain ? (
+        {marker ? (
           <Popup
-            latitude={selectedMountain.geometry.coordinates[1]}
-            longitude={selectedMountain.geometry.coordinates[0]}
+          latitude={marker.latitude}
+          longitude={marker.longitude}
             closeOnClick={false}
             onClose={() => {
-              setSelectedMountain(null);
+              setMarker(null);
             }}
           >
             <div>
-              <h6>{selectedMountain.properties.name}</h6>
+              <h6>{marker.description}</h6>
               <button onClick={editClick}>Edit</button>
               <button onClick={deleteClick}>Delete</button>
             </div>

@@ -27,6 +27,7 @@ const markerLocations = (state = [], action) => {
   switch (action.type) {
       case "SEND_MARKER_LOCATIONS":
           console.log('list of marker coordinates', action.payload);
+          return action.payload;
           default:
               return state;
   }

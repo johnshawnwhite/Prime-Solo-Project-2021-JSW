@@ -28,12 +28,16 @@ function Nav() {
         </Link>
         {user.id && (
           <>
+            <Link className="navLink" to="/Slang">
+              Slang
+            </Link>
             <Link className="navLink" to="/mountains">
               Mountains
             </Link>
             <Link className="navLink" to="/overlays">
               Overlays
             </Link>
+            
             <LogOutButton className="navLink" />
           </>
         )}

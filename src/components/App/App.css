@@ -6,9 +6,12 @@ body,
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align:justify;
   margin: 10px;
-  background-color: #91e4fb;
-  /* background-image: url(/src/components/App/alpental.jpg); */
+  /* background-color: #91e4fb; */
+  background-image: url(/src/components/App/randomimg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat center fixed;
 
 }
 

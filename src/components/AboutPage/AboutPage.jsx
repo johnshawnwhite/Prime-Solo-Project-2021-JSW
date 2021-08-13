@@ -11,8 +11,9 @@ function AboutPage() {
       <div>
         <p>This about page is for anyone to read!</p>
         <p>Technologies used</p>
+        <p>React</p>
         <p>React Map GL</p>
-        <p>Postres</p>
+        <p>Postgres</p>
         <p>SAGA</p>
         <p>Redux</p>
         <p>Node</p>

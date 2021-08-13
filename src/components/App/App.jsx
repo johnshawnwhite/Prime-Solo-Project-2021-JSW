@@ -16,6 +16,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import OverlayPage from '../Overlays/Overlays';
+import SlangPage from '../Slang/Slang';
 
 
 import './App.css';
@@ -75,6 +76,13 @@ function App() {
             path="/Overlays"
           >
             <OverlayPage />
+          </ProtectedRoute>
+          <ProtectedRoute  
+          // shows overlay page
+            exact
+            path="/Slang"
+          >
+            <SlangPage />
           </ProtectedRoute>
 
 

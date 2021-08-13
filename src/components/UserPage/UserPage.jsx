@@ -9,6 +9,7 @@ function UserPage() {
     <div className="container">
       <h2>You've made it, {user.username}!</h2>
       <h3>Feel free to look at our list of mountains so that you can place some information on a map for later!</h3>
+      <h3>But First, Make sure you look through the Slang page, so that you understand the terminology when speaking with the locals on your trip!</h3>
       {/* <p>Your ID is: {user.id}</p> */}
       <LogOutButton className="btn" />
     </div>

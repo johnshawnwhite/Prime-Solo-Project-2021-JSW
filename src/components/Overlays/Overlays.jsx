@@ -32,11 +32,11 @@ function Overlays() {
   }, []);
 
   const [viewport, setViewport] = useState({
-    width: "70vw",
-    height: "50vw",
+    width: "80vw",
+    height: "40vw",
     latitude: start.latitude,
     longitude: start.longitude,
-    zoom: 13,
+    zoom: 15,
   });
 
   const [marker, setMarker] = useState(null);
@@ -69,7 +69,7 @@ function Overlays() {
       return markers.map(marker => (<li key={marker.id}>{marker.description}</li>))
   }};
 
-  const [selectedMountain, setSelectedMountain] = useState(null);
+  // const [selectedMountain, setSelectedMountain] = useState(null);
 
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
@@ -94,28 +94,28 @@ function Overlays() {
     // alert("Prewind for loading");
     // history.push('/checkout');    need to reload map on click event
   };
-  const deleteClick = () => {
+  const deleteClick = (id) => {
     const marker = {
       latitude: latitude,
       longitude: longitude,
       description: description
     }
 
-    console.log("delete this marker", marker)
+    console.log("delete this marker", id)
     dispatch({
       type: "DELETE_MARKER",
-      payload: marker.id
+      payload: id
   });
 }
 
-  const editClick = () => {
+  const editClick = (id) => {
     const marker = {
       latitude: latitude,
       longitude: longitude,
       description: description,
     };
 
-    console.log("edit this marker", marker)
+    console.log("edit this marker", id)
     dispatch({
       type: "EDIT_MARKER",
       payload: marker.id
@@ -138,10 +138,11 @@ function Overlays() {
     navigator.geolocation.getCurrentPosition((pos) => {
       setViewport({
         ...viewport,
-        CurrentZoomLevel,  
+        CurrentZoomLevel,
+          
         // latitude: pos.coords.latitude,
         // longitude: pos.coords.longitude,
-      });
+      });console.log('viewport');
     });
   }, [viewport]);
 console.log('posting markers',markers);
@@ -167,10 +168,11 @@ console.log('posting markers',markers);
         value={description}
       />
       <button onClick={onPostClick}>Post it!</button>
-      <button onClick={handleClick}>Show me markers!</button>
+      <button onClick={handleClick}>Change my marker!</button>
       <ReactMapGL
         {...viewport}
-        onViewportChange={(nextViewport) => setViewport(nextViewport)}
+        onViewportChange={setViewport}
+        //  ={(nextViewport) => setViewport(nextViewport)}
         mapStyle="mapbox://styles/mapbox/streets-v11"
         mapboxApiAccessToken={MAPBOX_TOKEN}
       >
@@ -193,15 +195,15 @@ console.log('posting markers',markers);
               onDragEnd={onMarkerDragEnd}
             >
               <Pin size={20} />
-              {/* <button
+              <button
                 className="marker-btn"
                 onClick={(event) => {
                   event.preventDefault();
-                  setSelectedMountain(spots);
+                  (spots);
                 }}
               >
                 <img src="/snowboard.png" alt="location icon" />
-              </button> */}
+              </button>
               
             </Marker>
             
@@ -211,15 +213,15 @@ console.log('posting markers',markers);
           <Popup
           latitude={marker.latitude}
           longitude={marker.longitude}
+          description={marker.description}
             closeOnClick={false}
+            
             onClose={() => {
               setMarker(null);
             }}
           >
             <div>
               <h6>{marker.description}</h6>
-              <button onClick={editClick}>Edit</button>
-              <button onClick={deleteClick}>Delete</button>
             </div>
           </Popup>
         ) : null}
@@ -228,9 +230,15 @@ console.log('posting markers',markers);
         <NavigationControl />
       </ReactMapGL>
       <div>
-        <ul>List of Marker
-          <li></li>
-        </ul>
+        <ul>
+
+          {markers.map ((item) => {
+            return(
+          <li>{item.description}
+          {/* <button onClick={() => editClick(item.id)}>Edit</button> */}
+          <button onClick={() => deleteClick(item.id)}>Delete</button></li>
+          )})} 
+          </ul>
       </div>
       
     </div>

@@ -16,7 +16,7 @@ function ControlPanel(props) {
           const lngLat = events[eventName];
           return (
             <div key={eventName}>
-              <strong>{eventName}:</strong> {lngLat ? lngLat.map(round5).join(', ') : <em>null</em>}
+              <strong>{eventName}:</strong> {lngLat ? lngLat.map(round5).join(', ') : <em></em>}
             </div>
           );
         })}

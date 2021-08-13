@@ -1,13 +1,18 @@
-
 import React, { useState, useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {render} from 'react-dom';
+import { render } from "react-dom";
 // import {render} from 'react-dom';
-import ReactMapGL, { Marker, Popup, GeolocateControl, MapContext, NavigationControl } from "react-map-gl";
+import ReactMapGL, {
+  Marker,
+  Popup,
+  GeolocateControl,
+  MapContext,
+  NavigationControl,
+} from "react-map-gl";
 // import {marker, popup} from "react-map-gl";{MapContext}, useEffect
 // import places from "../data/featureCollection.json";
-import Pin from './pin';
-import ControlPanel from './control-panel';
+import Pin from "./pin";
+import ControlPanel from "./control-panel";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1Ijoia2RzemFmcmFuc2tpIiwiYSI6ImNrczZhNGM0NzA4MG0yb210enlhOWkxaHkifQ.GEhDTku0VpkCA5wdnwDBvA"; // Set your mapbox token here
@@ -20,15 +25,15 @@ function Overlays() {
   const dispatch = useDispatch();
 
   const navStyle = {
-  position: 'top-right',
-  top: 0,
-  left: 0,
-  padding: '0px'
+    position: "top-right",
+    top: 0,
+    left: 0,
+    padding: "0px",
   };
 
   useEffect(() => {
-    console.log('use effect for get markers');
-    dispatch({type: 'GET_MARKERS'})
+    console.log("use effect for get markers");
+    dispatch({ type: "GET_MARKERS" });
   }, []);
 
   const [viewport, setViewport] = useState({
@@ -42,39 +47,43 @@ function Overlays() {
   const [marker, setMarker] = useState(null);
   const [events, logEvents] = useState({});
 
-  const onMarkerDragStart = useCallback(event => {
-    logEvents(_events => ({..._events, onDragStart: event.lngLat}));
+  const onMarkerDragStart = useCallback((event) => {
+    logEvents((_events) => ({ ..._events, onDragStart: event.lngLat }));
   }, []);
 
-  const onMarkerDrag = useCallback(event => {
-    logEvents(_events => ({..._events, onDrag: event.lngLat}));
+  const onMarkerDrag = useCallback((event) => {
+    logEvents((_events) => ({ ..._events, onDrag: event.lngLat }));
   }, []);
 
-  const onMarkerDragEnd = useCallback(event => {
-    logEvents(_events => ({..._events, onDragEnd: event.lngLat}));
+  const onMarkerDragEnd = useCallback((event) => {
+    logEvents((_events) => ({ ..._events, onDragEnd: event.lngLat }));
     setMarker({
       longitude: event.lngLat[0],
-      latitude: event.lngLat[1]
+      latitude: event.lngLat[1],
     });
   });
-  
+
   function CurrentZoomLevel() {
     const context = React.useContext(MapContext);
-  
+
     return <div>{context.viewport.zoom}</div>;
   }
 
   const displayMarkers = (marker) => {
-  {
-      return markers.map(marker => (<li key={marker.id}>{marker.description}</li>))
-  }};
+    {
+      return markers.map((marker) => (
+        <li key={marker.id}>{marker.description}</li>
+      ));
+    }
+  };
 
   // const [selectedMountain, setSelectedMountain] = useState(null);
 
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [description, setDescription] = useState("");
- 
+  const [id, setId] = useState(0);
+
   const onPostClick = () => {
     const marker = {
       latitude: latitude,
@@ -90,7 +99,6 @@ function Overlays() {
     // also need to be able to edit and delete the markers, so maybe a list appended to the dom that populates an edit and delete button
     // the edit button......hmmm...
 
-    
     // alert("Prewind for loading");
     // history.push('/checkout');    need to reload map on click event
   };
@@ -98,54 +106,48 @@ function Overlays() {
     const marker = {
       latitude: latitude,
       longitude: longitude,
-      description: description
-    }
+      description: description,
+    };
 
-    console.log("delete this marker", id)
+    console.log("delete this marker", id);
     dispatch({
       type: "DELETE_MARKER",
-      payload: id
-  });
-}
-
-  const editClick = (id) => {
-    const marker = {
-      latitude: latitude,
-      longitude: longitude,
-      description: description,
-    };
-
-    console.log("edit this marker", id)
-    dispatch({
-      type: "EDIT_MARKER",
-      payload: marker.id
-    });
-  }
-
-  const handleClick = () => {
-    const marker = {
-      latitude: latitude,
-      longitude: longitude,
-      description: description,
-    };
-
-    dispatch({
-      type: "GET_MARKER"
+      payload: id,
     });
   };
 
-  React.useEffect(() => {
-    navigator.geolocation.getCurrentPosition((pos) => {
-      setViewport({
-        ...viewport,
-        CurrentZoomLevel,
-          
-        // latitude: pos.coords.latitude,
-        // longitude: pos.coords.longitude,
-      });console.log('viewport');
+  const editClick = (event) => {
+    setId(event.id);
+    setLatitude(event.latitude);
+    setLongitude(event.longitude);
+    setDescription(event.description);
+    const marker = {
+      latitude: latitude,
+      longitude: longitude,
+      description: description,
+    };
+  };
+
+  const handleEdit = () => {
+    const marker = {
+      id: id,
+      latitude: latitude,
+      longitude: longitude,
+      description: description,
+    };
+    console.log("edit this marker", marker.id);
+    dispatch({
+      type: "EDIT_MARKER",
+      payload: marker,
     });
-  }, [viewport]);
-console.log('posting markers',markers);
+
+    setId("");
+    setLatitude("");
+    setLongitude("");
+    setDescription("");
+  };
+
+  console.log("posting markers", markers);
   return (
     <div className="mapdiv">
       <h1>Add A NEW MARKER</h1>
@@ -168,11 +170,14 @@ console.log('posting markers',markers);
         value={description}
       />
       <button onClick={onPostClick}>Post it!</button>
-      <button onClick={handleClick}>Change my marker!</button>
+      <button onChange={setDescription} onClick={handleEdit}>
+        Change my markers!
+      </button>
       <ReactMapGL
         {...viewport}
-        onViewportChange={setViewport}
-        //  ={(nextViewport) => setViewport(nextViewport)}
+        onViewportChange={(nextViewport) => setViewport(nextViewport)}
+        //
+        // {setViewport}
         mapStyle="mapbox://styles/mapbox/streets-v11"
         mapboxApiAccessToken={MAPBOX_TOKEN}
       >
@@ -180,7 +185,7 @@ console.log('posting markers',markers);
           positionOptions={{ enableHighAccuracy: true }}
           trackUserLocation={true}
         /> */}
-        
+
         {markers.map((spots) => {
           return (
             <Marker
@@ -195,7 +200,7 @@ console.log('posting markers',markers);
               onDragEnd={onMarkerDragEnd}
             >
               <Pin size={20} />
-              <button
+              {/* <button
                 className="marker-btn"
                 onClick={(event) => {
                   event.preventDefault();
@@ -203,44 +208,41 @@ console.log('posting markers',markers);
                 }}
               >
                 <img src="/snowboard.png" alt="location icon" />
-              </button>
-              
+              </button> */}
             </Marker>
-            
           );
         })}
         {marker ? (
           <Popup
-          latitude={marker.latitude}
-          longitude={marker.longitude}
-          description={marker.description}
+            latitude={marker.latitude}
+            longitude={marker.longitude}
+            description={marker.description}
             closeOnClick={false}
-            
+            // onClick={}
             onClose={() => {
               setMarker(null);
             }}
           >
-            <div>
-              <h6>{marker.description}</h6>
-            </div>
+            <h2>{marker.description}</h2>
           </Popup>
         ) : null}
-        <div className="nav" style={navStyle}> 
-        </div><ControlPanel events={events}></ControlPanel>
+        <div className="nav" style={navStyle}></div>
+        <ControlPanel events={events}></ControlPanel>
         <NavigationControl />
       </ReactMapGL>
       <div>
         <ul>
-
-          {markers.map ((item) => {
-            return(
-          <li>{item.description}
-          {/* <button onClick={() => editClick(item.id)}>Edit</button> */}
-          <button onClick={() => deleteClick(item.id)}>Delete</button></li>
-          )})} 
-          </ul>
+          {markers.map((item) => {
+            return (
+              <li>
+                {item.id}-*-{item.description}
+                <button onClick={() => editClick(item)}>Edit</button>
+                <button onClick={() => deleteClick(item.id)}>Delete</button>
+              </li>
+            );
+          })}
+        </ul>
       </div>
-      
     </div>
   );
 }

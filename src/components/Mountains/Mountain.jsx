@@ -24,7 +24,7 @@ function Mountains() {
 
   return (
     <div className="container">
-      <div>
+      <div className="mountains">
         <p>Here are some possibilties for your favorite spot!</p>
         {/* // save the coordinates in a reducer and call the reducer from the other page?
         // the value of the reducer is the value of the coordinates..
